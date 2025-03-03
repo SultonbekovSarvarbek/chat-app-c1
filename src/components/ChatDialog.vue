@@ -1,69 +1,3 @@
-<template>
-  <div class="dialog-container">
-    <q-header class="bg-primary fixed-top-within-container">
-      <q-toolbar>
-        <q-btn 
-          v-if="isMobile" 
-          flat 
-          round 
-          dense 
-          icon="arrow_back" 
-          @click="goBack" 
-        />
-        
-        <initials-avatar :name="contact.name" class="q-mr-sm" />
-        
-        <q-toolbar-title>
-          {{ contact.name }}
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
-    
-    <div class="content-area">
-      <div class="messages-area q-pa-md" ref="msgContainer">
-        <div v-if="!hasMessages" class="text-center q-pa-lg text-grey">
-          Нет сообщений
-        </div>
-        
-        <template v-else>
-          <chat-message 
-            v-for="msg in messages" 
-            :key="msg.id" 
-            :message="msg" 
-          />
-        </template>
-      </div>
-      
-      <div class="input-area q-pa-md">
-        <q-form @submit="onSendMessage">
-          <div class="row">
-            <q-input
-              v-model="msgText"
-              outlined
-              dense
-              placeholder="Введите сообщение"
-              class="col"
-              bg-color="white"
-              ref="inputField"
-              autocomplete="off"
-              autofocus
-            />
-            <q-btn
-              type="submit"
-              color="primary"
-              icon="send"
-              flat
-              round
-              class="q-ml-sm"
-              :disable="!msgText.trim()"
-            />
-          </div>
-        </q-form>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, nextTick } from 'vue';
 import type { Contact } from '../types';
@@ -148,6 +82,72 @@ onMounted(() => {
   }
 });
 </script>
+
+<template>
+  <div class="dialog-container">
+    <q-header class="bg-primary fixed-top-within-container">
+      <q-toolbar>
+        <q-btn 
+          v-if="isMobile" 
+          flat 
+          round 
+          dense 
+          icon="arrow_back" 
+          @click="goBack" 
+        />
+        
+        <initials-avatar :name="contact.name" class="q-mr-sm" />
+        
+        <q-toolbar-title>
+          {{ contact.name }}
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+    
+    <div class="content-area">
+      <div class="messages-area q-pa-md" ref="msgContainer">
+        <div v-if="!hasMessages" class="text-center q-pa-lg text-grey">
+          Нет сообщений
+        </div>
+        
+        <template v-else>
+          <chat-message 
+            v-for="msg in messages" 
+            :key="msg.id" 
+            :message="msg" 
+          />
+        </template>
+      </div>
+      
+      <div class="input-area q-pa-md">
+        <q-form @submit="onSendMessage">
+          <div class="row">
+            <q-input
+              v-model="msgText"
+              outlined
+              dense
+              placeholder="Введите сообщение"
+              class="col"
+              bg-color="white"
+              ref="inputField"
+              autocomplete="off"
+              autofocus
+            />
+            <q-btn
+              type="submit"
+              color="primary"
+              icon="send"
+              flat
+              round
+              class="q-ml-sm"
+              :disable="!msgText.trim()"
+            />
+          </div>
+        </q-form>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .dialog-container {

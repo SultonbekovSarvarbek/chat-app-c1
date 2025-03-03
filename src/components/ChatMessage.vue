@@ -1,17 +1,3 @@
-<template>
-  <div class="msg" :class="{ 'msg-sent': isMine }">
-    <div v-if="!isMine" class="sender-avatar q-mr-sm">
-      <initials-avatar :name="message.sender" />
-    </div>
-    <div class="msg-bubble q-pa-sm" :class="{ 'msg-sent': isMine }">
-      <div class="msg-text">{{ message.text }}</div>
-      <div class="msg-time text-caption text-grey">
-        {{ formatMessageTime(message.timestamp) }}
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Message } from '../types';
@@ -28,6 +14,20 @@ function formatMessageTime(timestamp: number): string {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 </script>
+
+<template>
+  <div class="msg" :class="{ 'msg-sent': isMine }">
+    <div v-if="!isMine" class="sender-avatar q-mr-sm">
+      <initials-avatar :name="message.sender" />
+    </div>
+    <div class="msg-bubble q-pa-sm" :class="{ 'msg-sent': isMine }">
+      <div class="msg-text">{{ message.text }}</div>
+      <div class="msg-time text-caption text-grey">
+        {{ formatMessageTime(message.timestamp) }}
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .msg {

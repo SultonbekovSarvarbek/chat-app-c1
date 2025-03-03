@@ -1,12 +1,3 @@
-<template>
-  <div class="avatar" :style="{ backgroundColor: getColor() }">
-    {{ getInitials() }}
-    <q-badge v-if="unreadCount && unreadCount > 0" color="red" floating>
-      {{ unreadCount }}
-    </q-badge>
-  </div>
-</template>
-
 <script setup lang="ts">
 const props = defineProps<{
   name: string;
@@ -45,6 +36,15 @@ function getColor() {
   return colors[Math.abs(hash) % colors.length];
 }
 </script>
+
+<template>
+  <div class="avatar" :style="{ backgroundColor: getColor() }">
+    {{ getInitials() }}
+    <q-badge v-if="unreadCount && unreadCount > 0" color="red" floating>
+      {{ unreadCount }}
+    </q-badge>
+  </div>
+</template>
 
 <style scoped>
 .avatar {

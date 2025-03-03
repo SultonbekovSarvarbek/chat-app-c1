@@ -1,54 +1,3 @@
-<template>
-  <div class="chat-wrapper">
-    <div v-if="contacts.length === 0" class="q-pa-md bg-yellow-1">
-      <p>Нет доступных контактов. Проверьте соединение с сервером.</p>
-      <p>Статус соединения: {{ isConnected ? 'Подключено' : 'Отключено' }}</p>
-    </div>
-    
-    <div class="row no-wrap" style="height: 100%">
-      <div 
-        class="col-12 col-md-4 contacts-col" 
-        :class="{ 'hidden-mobile': isMobile && activeContact }"
-      >
-        <q-header class="bg-primary fixed-top-within-container">
-          <q-toolbar>
-            <q-toolbar-title>
-              Чат
-            </q-toolbar-title>
-          </q-toolbar>
-        </q-header>
-        
-        <div class="content-container">
-          <contact-list 
-            :contacts="contacts" 
-            @select-contact="onSelectContact" 
-          />
-        </div>
-      </div>
-      
-      <div 
-        class="col dialog-col" 
-        :class="{ 
-          'hidden-desktop': !isMobile && !activeContact, 
-          'hidden-mobile': isMobile && !activeContact 
-        }"
-      >
-        <template v-if="activeContact">
-          <chat-dialog 
-            :contact="activeContact" 
-            :isMobile="isMobile"
-            @send-message="onSendMessage" 
-            @go-back="onGoBack" 
-          />
-        </template>
-        <div v-else class="no-chat-selected q-pa-lg text-center text-grey">
-          Выберите чат для начала общения
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
@@ -108,6 +57,57 @@ onMounted(() => {
   }, 100);
 });
 </script>
+
+<template>
+  <div class="chat-wrapper">
+    <div v-if="contacts.length === 0" class="q-pa-md bg-yellow-1">
+      <p>Нет доступных контактов. Проверьте соединение с сервером.</p>
+      <p>Статус соединения: {{ isConnected ? 'Подключено' : 'Отключено' }}</p>
+    </div>
+    
+    <div class="row no-wrap" style="height: 100%">
+      <div 
+        class="col-12 col-md-4 contacts-col" 
+        :class="{ 'hidden-mobile': isMobile && activeContact }"
+      >
+        <q-header class="bg-primary fixed-top-within-container">
+          <q-toolbar>
+            <q-toolbar-title>
+              Чат
+            </q-toolbar-title>
+          </q-toolbar>
+        </q-header>
+        
+        <div class="content-container">
+          <contact-list 
+            :contacts="contacts" 
+            @select-contact="onSelectContact" 
+          />
+        </div>
+      </div>
+      
+      <div 
+        class="col dialog-col" 
+        :class="{ 
+          'hidden-desktop': !isMobile && !activeContact, 
+          'hidden-mobile': isMobile && !activeContact 
+        }"
+      >
+        <template v-if="activeContact">
+          <chat-dialog 
+            :contact="activeContact" 
+            :isMobile="isMobile"
+            @send-message="onSendMessage" 
+            @go-back="onGoBack" 
+          />
+        </template>
+        <div v-else class="no-chat-selected q-pa-lg text-center text-grey">
+          Выберите чат для начала общения
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .chat-wrapper {

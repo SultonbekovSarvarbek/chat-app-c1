@@ -1,39 +1,3 @@
-<template>
-  <div class="contacts-list">
-    <div>
-      <q-list separator>
-        <q-item 
-          v-for="contact in contacts" 
-          :key="contact.id"
-          clickable
-          v-ripple
-          @click="onContactClick(contact)"
-          class="q-py-md"
-        >
-          <q-item-section avatar>
-            <initials-avatar 
-              :name="contact.name" 
-              :unreadCount="contact.unreadCount"
-            />
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>{{ contact.name }}</q-item-label>
-            <q-item-label caption lines="1" class="ellipsis">
-              {{ getLastMessagePreview(contact) }}
-            </q-item-label>
-          </q-item-section>
-
-          <q-item-section side>
-            <q-item-label caption>
-              {{ getTimeLabel(contact.lastMessageTimestamp) }}
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </div>
-  </div>
-</template>
 
 <script setup lang="ts">
 import type { Contact } from '../types';
@@ -84,6 +48,43 @@ function getTimeLabel(timestamp?: number): string {
   return msgDate.toLocaleDateString();
 }
 </script>
+
+<template>
+  <div class="contacts-list">
+    <div>
+      <q-list separator>
+        <q-item 
+          v-for="contact in contacts" 
+          :key="contact.id"
+          clickable
+          v-ripple
+          @click="onContactClick(contact)"
+          class="q-py-md"
+        >
+          <q-item-section avatar>
+            <initials-avatar 
+              :name="contact.name" 
+              :unreadCount="contact.unreadCount"
+            />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>{{ contact.name }}</q-item-label>
+            <q-item-label caption lines="1" class="ellipsis">
+              {{ getLastMessagePreview(contact) }}
+            </q-item-label>
+          </q-item-section>
+
+          <q-item-section side>
+            <q-item-label caption>
+              {{ getTimeLabel(contact.lastMessageTimestamp) }}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .contacts-list {
